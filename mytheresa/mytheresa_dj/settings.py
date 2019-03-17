@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_results',
+
     'trophy_viewer',
 ]
 
@@ -77,8 +79,12 @@ WSGI_APPLICATION = 'mytheresa_dj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'scrapy_db',
+        'USER': 'scrapy_guy',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
@@ -120,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CELERY_RESULT_BACKEND = 'django-db'
+

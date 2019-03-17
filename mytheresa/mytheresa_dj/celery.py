@@ -4,8 +4,9 @@ from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mytheresa_dj.settings')
 
-app = Celery('mytheresa_dj')
-app.conf.broker_url = 'redis://localhost:6379/0'
+app = Celery('mytheresa_dj',
+             backend='redis://localhost',
+             broker='redis://localhost')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
@@ -17,3 +18,4 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
+
