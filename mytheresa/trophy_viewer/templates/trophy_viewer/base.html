@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helloworld</title>
+</head>
+<body>
+    <h1>Mytheresa Scrapy</h1>
+    <div>
+        <form method='POST'>
+            {% csrf_token %}
+            <button style="height:40px;width:80px" type='submit'> parse </button>
+        </form>
+    </div>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
