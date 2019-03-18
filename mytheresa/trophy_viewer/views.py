@@ -1,8 +1,9 @@
+import redis
+
 from django.shortcuts import render
 from django.views.generic import ListView
 
 from .models import MytheresaItem
-from .tasks import add
 
 
 class Index(ListView):
@@ -10,6 +11,10 @@ class Index(ListView):
 
     model = MytheresaItem
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.redis_db = redis.Redis()
+
     def post(self, request, *args, **kwargs):
-        add.delay(1, 2)
+        self.redis_db.lpush('boys_catalog:start_urls', 'https://www.mytheresa.com/en-us/boys.html?block=boys')
         return self.get(self, request, *args, **kwargs)

@@ -13,7 +13,15 @@
                     <li>{{ item.description }}</li>
             {% endfor %}
         </ul>
-    {% else %}
+    {% elif not is_started %}
+    <div>
+        <form method='POST'>
+            {% csrf_token %}
+            <button style="height:40px;width:80px" type='submit'> parse </button>
+        </form>
+    </div>
         <h2>Data Base is empty, click the start button</h2>
+    {% else %}
+        <h2>started scraping</h2>
     {% endif %}
 {% endblock %}

@@ -9,6 +9,11 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import django
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mytheresa_dj.settings")
+django.setup()
+
 BOT_NAME = 'mytheresa'
 
 SPIDER_MODULES = ['mytheresa.spiders']
@@ -23,7 +28,8 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Store scraped item in redis for post-processing.
 ITEM_PIPELINES = {
-    'scrapy_redis.pipelines.RedisPipeline': 300
+    'mytheresa.pipelines.MytheresaPipeline': 300,
+    'scrapy_redis.pipelines.RedisPipeline': 800
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
