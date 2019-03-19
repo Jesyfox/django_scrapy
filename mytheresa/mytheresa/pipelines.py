@@ -16,9 +16,9 @@ class MytheresaPipeline(object):
 
     def process_item(self, item, spider):
         dict_item = dict(item)
+        dict_item.update(category=spider.name)
         self.item_array.append(dict_item)
         if len(self.item_array) == NUMBER_OF_ITEMS_TO_SEND:
-            print('adding new items')
             add_to_db.delay(self.item_array)
             self.item_array = []
         return item

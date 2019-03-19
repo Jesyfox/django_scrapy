@@ -66,6 +66,8 @@ class CatalogSpider(RedisSpider):
             yield scrapy.Request(url=url, callback=self.parse_item)
 
     def parse(self, response):
-        for page in range(1, self.get_page_count(response) + 1):
-            page_url = 'https://www.mytheresa.com/en-us/boys.html?p={page}'.format(page=page)
-            yield scrapy.Request(url=page_url, callback=self.parse_page)
+        # for page in range(1, self.get_page_count(response) + 1):
+        #     page_url = 'https://www.mytheresa.com/en-us/boys.html?p={page}'.format(page=page)
+        #     yield scrapy.Request(url=page_url, callback=self.parse_page)
+        page_url = 'https://www.mytheresa.com/en-us/boys.html?p=1'
+        yield scrapy.Request(url=page_url, callback=self.parse_page)

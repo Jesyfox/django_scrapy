@@ -5,9 +5,14 @@
             <h2>Mytheresa items</h2>
             {% for item in object_list %}
                 <h3>{{ item.id }}</h3>
+                    <li><b>category:</b> {{ item.category }}</li>
                     <li><b>article:</b> {{ item.article }}</li>
                     <li><b>title:</b> {{ item.title }}</li>
-                    <li><b>image:</b> {{ item.image }}</li>
+                    <li><b>image:</b>
+                        {% for img in item.image %}
+                        <a href="http://{{ img }}">{{ img }}</a>
+                        {% endfor %}
+                    </li>
                     <li><b>price:</b> {{ item.price }}</li>
                     <li><b>size:</b> {{ item.size }}</li>
                     <li><b>description:</b> {{ item.description }}</li>
