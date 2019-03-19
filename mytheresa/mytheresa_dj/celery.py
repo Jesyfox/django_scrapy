@@ -12,7 +12,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-# celery -A trophy_viewer worker -l info
+# celery -A mytheresa_dj worker -l info
 
 
 @app.task(bind=True)

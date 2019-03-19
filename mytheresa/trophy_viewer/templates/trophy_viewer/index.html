@@ -5,15 +5,15 @@
             <h2>Mytheresa items</h2>
             {% for item in object_list %}
                 <h3>{{ item.id }}</h3>
-                    <li>{{ item.article }}</li>
-                    <li>{{ item.title }}</li>
-                    <li>{{ item.image }}</li>
-                    <li>{{ item.price }}</li>
-                    <li>{{ item.size }}</li>
-                    <li>{{ item.description }}</li>
+                    <li><b>article:</b> {{ item.article }}</li>
+                    <li><b>title:</b> {{ item.title }}</li>
+                    <li><b>image:</b> {{ item.image }}</li>
+                    <li><b>price:</b> {{ item.price }}</li>
+                    <li><b>size:</b> {{ item.size }}</li>
+                    <li><b>description:</b> {{ item.description }}</li>
             {% endfor %}
         </ul>
-    {% elif not is_started %}
+    {% else %}
     <div>
         <form method='POST'>
             {% csrf_token %}
@@ -21,7 +21,5 @@
         </form>
     </div>
         <h2>Data Base is empty, click the start button</h2>
-    {% else %}
-        <h2>started scraping</h2>
     {% endif %}
 {% endblock %}

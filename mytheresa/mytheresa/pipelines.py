@@ -6,11 +6,8 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from trophy_viewer.tasks import add_to_db
-import os
-import django
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mytheresa_dj.settings")
-django.setup()
+
+NUMBER_OF_ITEMS_TO_SEND = 1
 
 
 class MytheresaPipeline(object):
@@ -18,6 +15,10 @@ class MytheresaPipeline(object):
         self.item_array = []
 
     def process_item(self, item, spider):
-        self.item_array.append(item)
-        add_to_db.delay(len(self.item_array))
+        dict_item = dict(item)
+        self.item_array.append(dict_item)
+        if len(self.item_array) == NUMBER_OF_ITEMS_TO_SEND:
+            print('adding new items')
+            add_to_db.delay(self.item_array)
+            self.item_array = []
         return item
