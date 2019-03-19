@@ -6,13 +6,14 @@ from scrapy_redis.spiders import RedisSpider
 
 
 class CatalogSpider(RedisSpider):
-    name = "boys_catalog"
-    # start_urls = [
-    #         'https://www.mytheresa.com/en-us/boys.html',
-    #     ]
+    name = 'boys_catalog'
+    url = 'https://www.mytheresa.com/en-us/boys.html'
 
     def get_page_count(self, response):
-        return int(response.xpath('//li[@class="last"]/a/@href').extract_first().split('?p=')[-1])
+        try:
+            return int(response.xpath('//li[@class="last"]/a/@href').extract_first().split('?p=')[-1])
+        except IndexError:
+            return 1
 
     def make_requests_from_url(self, url):
         return scrapy.Request(url=url)
@@ -45,6 +46,7 @@ class CatalogSpider(RedisSpider):
                 else:
                     size = item.xpath('text()').extract_first()
                 res.append(size)
+
         return res
 
     def get_description(self, response):
@@ -61,13 +63,12 @@ class CatalogSpider(RedisSpider):
         return item
 
     def parse_page(self, response):
-        p_urls = response.xpath('//h2[@class="product-name"]/a/@href').extract()[:1]  # !!!
+        p_urls = response.xpath('//h2[@class="product-name"]/a/@href').extract()[:3]
         for url in p_urls:
             yield scrapy.Request(url=url, callback=self.parse_item)
 
     def parse(self, response):
-        # for page in range(1, self.get_page_count(response) + 1):
-        #     page_url = 'https://www.mytheresa.com/en-us/boys.html?p={page}'.format(page=page)
-        #     yield scrapy.Request(url=page_url, callback=self.parse_page)
-        page_url = 'https://www.mytheresa.com/en-us/boys.html?p=1'
-        yield scrapy.Request(url=page_url, callback=self.parse_page)
+        for page in range(1, self.get_page_count(response) + 1):
+            page_url = '{url}?p={page}'.format(page=page, url=self.url)
+            yield scrapy.Request(url=page_url, callback=self.parse_page)
+

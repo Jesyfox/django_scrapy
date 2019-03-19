@@ -6,6 +6,12 @@
 </head>
 <body>
     <h1>Mytheresa Scrapy</h1>
+    {% if categories %}
+        Available categories:
+        {% for cat in categories %}
+            <b>{{ cat }},</b>
+        {% endfor %}
+    {% endif %}
     <div>
         {% block content %}
         {% endblock %}

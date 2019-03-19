@@ -7,7 +7,7 @@ from .models import MytheresaItem, Category
 def add_to_db(items):
     for item in items:
         category_model, created = Category.objects.get_or_create(name=item['category'])
-        item['category'] = category_model
+        item.update(category=category_model)
         new_model_item = MytheresaItem(**item)
         new_model_item.save()
     return f"added {len(items)} items"

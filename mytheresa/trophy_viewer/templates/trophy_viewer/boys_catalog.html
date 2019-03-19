@@ -18,6 +18,7 @@
                     <li><b>description:</b> {{ item.description }}</li>
             {% endfor %}
         </ul>
+
     {% else %}
     <div>
         <form method='POST'>
@@ -25,6 +26,10 @@
             <button style="height:40px;width:80px" type='submit'> parse </button>
         </form>
     </div>
+        {% if started_scrapy %}
+        <h2>Started scraping</h2>
+        {% else %}
         <h2>Data Base is empty, click the start button</h2>
+        {% endif %}
     {% endif %}
 {% endblock %}

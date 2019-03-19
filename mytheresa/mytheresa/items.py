@@ -13,5 +13,5 @@ class MytheresaItem(scrapy.Item):
     title = scrapy.Field()
     image = scrapy.Field()
     price = scrapy.Field()
-    size = scrapy.Field()  # <a href="javascript:void(0);" class="size-trigger"> ???
+    size = scrapy.Field()
     description = scrapy.Field()
