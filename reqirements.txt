@@ -11,6 +11,7 @@ cryptography==2.6.1
 cssselect==1.0.3
 decorator==4.4.0
 Django==2.1.7
+django-celery-results==1.0.4
 hyperlink==18.0.0
 idna==2.8
 incremental==17.5.0
